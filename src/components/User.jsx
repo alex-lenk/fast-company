@@ -1,6 +1,6 @@
 import React from 'react'
-import Quality from './quality'
-import Bookmark from './bookmark'
+import Quality from './Quality'
+import Bookmark from './Bookmark'
 
 const User = (props) => {
   const {

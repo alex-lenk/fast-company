@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Быстрые команды
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+rsc - Create Stateless React
 
 ## Available Scripts
 

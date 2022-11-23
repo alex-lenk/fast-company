@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types'
 import User from './User'
 import Pagination from './Pagination'
 import {pagination} from '../utils/pagination'
@@ -37,6 +38,12 @@ const Users = (props) => {
     )}
     <Pagination itemsCount={count} pageSize={pageSize} currentPage={currentPage} onPageChange={handlePageChange}/>
   </>
+}
+
+Users.propTypes = {
+  users: PropTypes.object.isRequired,
+  count: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired
 }
 
 export default Users

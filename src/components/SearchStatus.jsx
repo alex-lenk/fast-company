@@ -1,5 +1,6 @@
 import React from 'react'
 import declensionWords from '../utils/declensionWords'
+import PropTypes from 'prop-types'
 
 const SearchStatus = ({length}) => {
   const renderPhrase = (number) => {
@@ -15,6 +16,10 @@ const SearchStatus = ({length}) => {
       </div>
     )}
   </div>
+}
+
+SearchStatus.propTypes = {
+  length: PropTypes.number.isRequired,
 }
 
 export default SearchStatus

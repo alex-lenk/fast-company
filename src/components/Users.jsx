@@ -4,19 +4,17 @@ import User from './User'
 import Pagination from './Pagination'
 import {pagination} from '../utils/pagination'
 
-const Users = (props) => {
-  const {users, ...rest} = props
-  const count = users.length
-  const pageSize = 4
+const Users = ({users, count, ...rest}) => {
   const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 4
+  const userCrop = pagination(users, currentPage, pageSize)
 
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex)
   }
 
-  const userCrop = pagination(users, currentPage, pageSize)
   return <>
-    {!count ? false : (
+    {count && (
       <table className="table">
         <thead>
         <tr>
@@ -41,9 +39,8 @@ const Users = (props) => {
 }
 
 Users.propTypes = {
-  users: PropTypes.object.isRequired,
-  count: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired
+  users: PropTypes.array.isRequired,
+  count: PropTypes.number,
 }
 
 export default Users

@@ -7,7 +7,7 @@ const SearchStatus = ({length}) => {
     return `${number} человек${declensionWords(number, [' тусанет', 'а тусанут', ' тусуются'])}`
   }
 
-  return <div className="mb-5">
+  return <>
     {!length ? (
       <div className="alert-danger alert">Никто не тусуются с тобою сегодня</div>
     ) : (
@@ -15,7 +15,7 @@ const SearchStatus = ({length}) => {
         {renderPhrase(length)} с тобою сегодня
       </div>
     )}
-  </div>
+  </>
 }
 
 SearchStatus.propTypes = {

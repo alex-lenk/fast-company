@@ -4,16 +4,16 @@ import Quality from './Quality'
 import Bookmark from './Bookmark'
 
 const User = ({
-                _id,
-                name,
-                qualities,
-                profession,
-                completedMeetings,
-                rate,
-                onDelete,
-                bookmark,
-                onToggleBookmark,
-              }) => {
+  _id,
+  name,
+  qualities,
+  profession,
+  completedMeetings,
+  rate,
+  onDelete,
+  bookmark,
+  onToggleBookmark,
+}) => {
   return (
     <tr>
       <td>{name}</td>
@@ -29,9 +29,7 @@ const User = ({
         <Bookmark favorite={bookmark} onClick={() => onToggleBookmark(_id)}/>
       </td>
       <td className='text-end'>
-        <button className='btn-danger btn btn-sm' onClick={() => onDelete(_id)}>
-          удалить
-        </button>
+        <button className='btn-danger btn btn-sm' onClick={() => onDelete(_id)}>удалить</button>
       </td>
     </tr>
   )

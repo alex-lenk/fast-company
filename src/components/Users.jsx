@@ -14,36 +14,35 @@ const Users = ({users, ...rest}) => {
   const pageSize = 4
 
   useEffect(() => {
-    api.professions.fetchAll().then((data) => setProfession(data))
+    const pageCount = Math.ceil(usersCount / pageSize)
+    if (pageCount < currentPage) setCurrentPage(currentPage - 1)
+  })
+
+  useEffect(() => {
+    api.professions.fetchAll().then(data => setProfession(data))
   }, [])
 
   useEffect(() => {
     setCurrentPage(1)
   }, [selectedProf])
 
-  const handleProfessionSelect = item => {
-    setSelectedProf(item)
-  }
+  const handleProfessionSelect = item => setSelectedProf(item)
 
-  const handlePageChange = (pageIndex) => {
-    setCurrentPage(pageIndex)
-  }
+  const handlePageChange = (pageIndex) => setCurrentPage(pageIndex)
 
   const filteredUsers = selectedProf
-    ? users.filter(user => user.profession === selectedProf)
+    ? users.filter((user) => user.profession._id === selectedProf._id)
     : users
 
   const usersCount = filteredUsers.length
 
   const userCrop = pagination(filteredUsers, currentPage, pageSize)
 
-  const clearFilter = () => {
-    setSelectedProf()
-  }
+  const clearFilter = () => setSelectedProf()
 
   return <div className="container pt-5 pb-2">
     <div className="d-flex">
-      {profession &&
+      {profession && users.length > 0 &&
       <nav className='flex-shrink-0 pe-2'>
         <GroupList
           selectedItem={selectedProf}
@@ -56,26 +55,29 @@ const Users = ({users, ...rest}) => {
 
       <div>
         <SearchStatus length={usersCount}/>
-        {usersCount && (
-          <table className="table">
-            <thead>
-            <tr>
-              <th>Имя</th>
-              <th>Качества</th>
-              <th>Профессия</th>
-              <th className="text-center text-nowrap">Встретился, раз</th>
-              <th>Оценка</th>
-              <th className="text-center">Избранное</th>
-              <th>&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody>
-            {userCrop.map(user => (
-              <User key={user._id} {...user} {...rest}/>
-            ))}
-            </tbody>
-          </table>
-        )}
+
+        <div>
+          {userCrop && userCrop.length > 0 && (
+            <table className="table">
+              <thead>
+              <tr>
+                <th>Имя</th>
+                <th>Качества</th>
+                <th>Профессия</th>
+                <th className="text-center text-nowrap">Встретился, раз</th>
+                <th>Оценка</th>
+                <th className="text-center">Избранное</th>
+                <th>&nbsp;</th>
+              </tr>
+              </thead>
+              <tbody>
+              {userCrop.map(user => (
+                <User key={user._id} {...user} {...rest}/>
+              ))}
+              </tbody>
+            </table>
+          )}
+        </div>
 
         <div className="d-flex justify-content-center">
           <Pagination itemsCount={usersCount}
@@ -90,7 +92,7 @@ const Users = ({users, ...rest}) => {
 }
 
 Users.propTypes = {
-  users: PropTypes.array.isRequired,
+  users: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   usersCount: PropTypes.number,
 }
 

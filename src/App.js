@@ -1,9 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import api from './api'
 import Users from './components/Users'
 
 function App() {
-  const [users, setUsers] = useState(api.users.fetchAll())
+  const [users, setUsers] = useState()
+
+  useEffect(() => {
+    api.users.fetchAll().then((users) => setUsers(users))
+  }, [])
+
+  if (!users) return <div className="container pt-5 pb-2">загрузка данных, подождите...</div>
 
   const handleToggleBookmark = id => setUsers(
     users.map(user => {

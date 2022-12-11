@@ -1,22 +1,38 @@
 import React, {useState, useEffect} from 'react'
 import api from '../api'
 import PropTypes from 'prop-types'
-import User from './User'
 import Pagination from './Pagination'
 import {pagination} from '../utils/pagination'
 import GroupList from './GroupList'
 import SearchStatus from './SearchStatus'
+import UsersTable from './UsersTable'
+import _ from 'lodash'
 
-const Users = ({users, ...rest}) => {
+const Users = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [profession, setProfession] = useState()
   const [selectedProf, setSelectedProf] = useState()
   const pageSize = 4
+  const [sortBy, setSortBy] = useState({path: 'name', order: 'asc'})
+
+  const [users, setUsers] = useState()
 
   useEffect(() => {
-    const pageCount = Math.ceil(usersCount / pageSize)
-    if (pageCount < currentPage) setCurrentPage(currentPage - 1)
-  })
+    api.users.fetchAll().then((data) => setUsers(data))
+  }, [])
+
+  const handleDelete = (userId) => {
+    setUsers(users.filter(user => user._id !== userId))
+  }
+
+  const handleToggleBookmark = id => setUsers(
+    users.map(user => {
+      if (user._id === id) {
+        return {...user, bookmark: !user.bookmark}
+      }
+      return user
+    })
+  )
 
   useEffect(() => {
     api.professions.fetchAll().then(data => setProfession(data))
@@ -28,21 +44,27 @@ const Users = ({users, ...rest}) => {
 
   const handleProfessionSelect = item => setSelectedProf(item)
 
-  const handlePageChange = (pageIndex) => setCurrentPage(pageIndex)
+  const handlePageChange = pageIndex => setCurrentPage(pageIndex)
+
+  const handleSort = item => setSortBy(item)
+
+  if (!users) return <div className="container pt-5 pb-2">загрузка данных, подождите...</div>
 
   const filteredUsers = selectedProf
-    ? users.filter((user) => user.profession._id === selectedProf._id)
+    ? users.filter(user => user.profession._id === selectedProf._id)
     : users
 
   const usersCount = filteredUsers.length
 
-  const userCrop = pagination(filteredUsers, currentPage, pageSize)
+  const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
+
+  const userCrop = pagination(sortedUsers, currentPage, pageSize)
 
   const clearFilter = () => setSelectedProf()
 
-  return <div className="container pt-5 pb-2">
-    <div className="d-flex">
-      {profession && users.length > 0 &&
+  return profession && (
+    <div className="container pt-5 pb-2 d-flex">
+
       <nav className='flex-shrink-0 pe-2'>
         <GroupList
           selectedItem={selectedProf}
@@ -51,31 +73,19 @@ const Users = ({users, ...rest}) => {
         />
         <button className='btn-primary btn mt-3' onClick={clearFilter}>Все профессии</button>
       </nav>
-      }
 
       <div>
         <SearchStatus length={usersCount}/>
 
         <div>
           {userCrop && userCrop.length > 0 && (
-            <table className="table">
-              <thead>
-              <tr>
-                <th>Имя</th>
-                <th>Качества</th>
-                <th>Профессия</th>
-                <th className="text-center text-nowrap">Встретился, раз</th>
-                <th>Оценка</th>
-                <th className="text-center">Избранное</th>
-                <th>&nbsp;</th>
-              </tr>
-              </thead>
-              <tbody>
-              {userCrop.map(user => (
-                <User key={user._id} {...user} {...rest}/>
-              ))}
-              </tbody>
-            </table>
+            <UsersTable
+              users={userCrop}
+              onSort={handleSort}
+              selectedSort={sortBy}
+              onToggleBookmark={handleToggleBookmark}
+              onDelete={handleDelete}
+            />
           )}
         </div>
 
@@ -88,7 +98,7 @@ const Users = ({users, ...rest}) => {
         </div>
       </div>
     </div>
-  </div>
+  )
 }
 
 Users.propTypes = {

@@ -5,13 +5,12 @@ import _ from 'lodash'
 const TableBody = ({data, columns}) => {
   const renderContent = (instance, column) => {
     const component = columns[column].component
-    if (component) {
-      if (typeof component === 'function') {
-        return component(instance)
-      }
-      return component
-    }
-    return _.get(instance, columns[column].path)
+
+    if (!component) return _.get(instance, columns[column].path)
+
+    if (typeof component === 'function') return component(instance)
+
+    return component
   }
 
   return (

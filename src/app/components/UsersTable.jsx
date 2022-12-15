@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Bookmark from './Bookmark'
-import QualitiesList from './QualitysLisst'
+import QualitiesList from './QualitysList'
 import Tables from './Tables'
 
 const UsersTable = ({users, onSort, selectedSort, onToggleBookmark, onDelete}) => {

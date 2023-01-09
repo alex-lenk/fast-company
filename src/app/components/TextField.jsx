@@ -15,7 +15,7 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
 
   return (
     <div className="mb-3">
-      <label htmlFor={name}>{label}</label>
+      {label && <label htmlFor={name}>{label}</label>}
 
       <div className="input-group has-validation">
         <input
@@ -25,7 +25,7 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
           id={name}
           value={value}
           onChange={onChange}
-          placeholder={placeholder}
+          placeholder={placeholder ? placeholder : ''}
         />
         {
           type === 'password' &&
@@ -35,7 +35,6 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
         }
         {error && <div className="invalid-feedback">{error}</div>}
       </div>
-
     </div>
   )
 }

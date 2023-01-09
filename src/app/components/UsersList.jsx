@@ -6,6 +6,7 @@ import SearchStatus from '../components/SearchStatus'
 import UsersTable from '../components/UsersTable'
 import api from '../api'
 import _ from 'lodash'
+import UsersSearch from './UsersSearch'
 
 const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -13,6 +14,8 @@ const UsersList = () => {
   const [selectedProf, setSelectedProf] = useState()
   const pageSize = 4
   const [sortBy, setSortBy] = useState({path: 'name', order: 'asc'})
+  const [searchText, setSearchText] = useState('')
+  const [foundedUsers, setFoundedUsers] = useState()
 
   const [users, setUsers] = useState()
 
@@ -37,9 +40,13 @@ const UsersList = () => {
 
   useEffect(() => {
     setCurrentPage(1)
-  }, [selectedProf])
+  }, [selectedProf, searchText])
 
-  const handleProfessionSelect = item => setSelectedProf(item)
+  const handleProfessionSelect = item => {
+    setSelectedProf(item)
+    setSearchText('')
+    setFoundedUsers('')
+  }
 
   const handlePageChange = pageIndex => setCurrentPage(pageIndex)
 
@@ -49,7 +56,7 @@ const UsersList = () => {
 
   const filteredUsers = selectedProf
     ? users.filter(user => user.profession._id === selectedProf._id)
-    : users
+    : foundedUsers || users
 
   const usersCount = filteredUsers.length
 
@@ -57,7 +64,20 @@ const UsersList = () => {
 
   const userCrop = pagination(sortedUsers, currentPage, pageSize)
 
-  const clearFilter = () => setSelectedProf()
+  const clearFilter = () => {
+    setSelectedProf('')
+    setSearchText('')
+    setFoundedUsers('')
+  }
+
+  const handleUserSearch = ({target}) => {
+    setSelectedProf('')
+    const searchResult = users.filter((user) =>
+      user.name.toLowerCase().includes(target.value.toLowerCase())
+    )
+    setSearchText(target.value)
+    setFoundedUsers(searchResult)
+  }
 
   return (
     <div className="d-flex">
@@ -67,11 +87,13 @@ const UsersList = () => {
           items={profession}
           onItemSelect={handleProfessionSelect}
         />
-        <button className='btn-secondary btn mt-3' onClick={clearFilter}>Все профессии</button>
+        <button className="btn-secondary btn mt-3" onClick={clearFilter}>Все профессии</button>
       </nav>
 
       <div>
         <SearchStatus length={usersCount}/>
+
+        <UsersSearch value={searchText} onChange={handleUserSearch}/>
 
         <div>
           {userCrop && userCrop.length > 0 && (

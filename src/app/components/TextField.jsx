@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import '../scss/styles.scss'
 
-const TextField = ({label, placeholder, type, name, value, onChange, error}) => {
+const TextField = ({label, type, name, value, onChange, error, placeholder}) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const genInputClasses = () => {

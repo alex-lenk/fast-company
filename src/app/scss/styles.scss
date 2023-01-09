@@ -1,0 +1,9 @@
+@import 'utils/mixin';
+
+.form-control:focus {
+  @include hidePlaceholder {
+    color: transparent;
+    opacity: 0.4;
+    transition: opacity .2s ease-in-out;
+  }
+}

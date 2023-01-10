@@ -1,5 +1,5 @@
 import React from 'react'
-import declensionWords from '../utils/declensionWords'
+import declensionWords from '../../utils/declensionWords'
 import PropTypes from 'prop-types'
 
 const SearchStatus = ({length}) => {

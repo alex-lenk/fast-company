@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import range from '../utils/range'
+import range from '../../utils/range'
 //import _ from 'lodash' @todo в уроке используется lodash, я сделал нативно
 
 const Pagination = (props) => {

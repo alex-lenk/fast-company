@@ -1,91 +1,39 @@
-import React, {useEffect, useState} from 'react'
-import TextField from '../components/TextField'
-import {validator} from '../utils/validator'
+import React, {useState} from 'react'
+import LoginForm from '../components/ui/LoginForm'
+import {useParams} from 'react-router-dom'
+import RegisterForm from '../components/ui/RegisterForm'
 
 const Login = () => {
-  const [data, setData] = useState({email: '', password: ''})
-  const [errors, setErrors] = useState({})
+  const {type} = useParams()
+  const [formType, setFormType] = useState(type === 'register' ? 'register' : 'login')
 
-  const handleChange = ({target}) => {
-    setData(prevState => ({
-      ...prevState,
-      [target.name]: target.value
-    }))
-  }
-
-  const validatorConfig = {
-    email: {
-      isRequired: {
-        message: 'Email обазателен для заполнения'
-      },
-      isEmail: {
-        message: 'Email введен некоректено'
-      }
-    },
-    password: {
-      isRequired: {
-        message: 'Пароль обазателен для заполнения'
-      },
-      isCapitalSymbol: {
-        message: 'Пароль должен содержать хотя бы одну заглавную букву'
-      },
-      isContainDigit: {
-        message: 'Пароль должен содержать хотя бы одну цифру'
-      },
-      minDigit: {
-        message: 'Пароль должен содержать минимум 8 символов',
-        value: 8
-      },
-      isNonWhitespace: {
-        message: 'Пароль не должен содержать пробелов'
-      }
-    }
-  }
-
-  useEffect(() => {
-    validate()
-  }, [data])
-
-  const validate = () => {
-    const errors = validator(data, validatorConfig)
-
-    setErrors(errors)
-    return Object.keys(errors).length === 0
-  }
-
-  const isValid = Object.keys(errors).length === 0
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    const isValid = validate()
-    if (!isValid) return
-    console.log(data)
+  const toggleFormType = () => {
+    setFormType(prevState => prevState === 'register' ? 'login' : 'register')
   }
 
   return (
-
-    <div className="pt-5 row">
-      <div className="col-md-6 col-offset-3 shadow p-4">
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label='Email'
-            name='email'
-            value={data.email}
-            onChange={handleChange}
-            error={errors?.email}
-          />
-          <TextField
-            label='Пароль'
-            type='password'
-            name='password'
-            value={data.password}
-            onChange={handleChange}
-            error={errors?.password}
-          />
-
-          <button className="w-100 mx-auto btn-primary btn" type="submit" disabled={!isValid}>Отправить</button>
-        </form>
+    <div className="pt-5 mb-5 row">
+      <div className="col-md-6 offset-3 shadow p-4">
+        {
+          formType === 'register' ?
+          <>
+            <h3 className="mb-3">Register</h3>
+            <RegisterForm/>
+            <p className="mt-3">
+              У вас есть аккаунт? &nbsp;
+              <span className="link-primary" role="button" onClick={toggleFormType}>Войти</span>
+            </p>
+          </>
+          :
+          <>
+            <h3 className="mb-3">Login</h3>
+            <LoginForm/>
+            <p className="mt-3">
+              У вас нет аккаунт? &nbsp;
+              <a className="link-primary" role="button" onClick={toggleFormType}>Зарегистрироваться</a>
+            </p>
+          </>
+        }
       </div>
     </div>
   )

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import Pagination from '../components/Pagination'
-import {pagination} from '../utils/pagination'
-import GroupList from '../components/GroupList'
-import SearchStatus from '../components/SearchStatus'
-import UsersTable from '../components/UsersTable'
-import api from '../api'
+import Pagination from '../../common/Pagination'
+import {pagination} from '../../../utils/pagination'
+import GroupList from '../../common/GroupList'
+import SearchStatus from '../../ui/SearchStatus'
+import UsersTable from '../../ui/UsersTable'
+import api from '../../../api'
 import _ from 'lodash'
-import UsersSearch from './UsersSearch'
+import UsersSearch from '../../UsersSearch'
 
-const UsersList = () => {
+const UsersListPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [profession, setProfession] = useState()
   const [selectedProf, setSelectedProf] = useState()
@@ -16,7 +16,6 @@ const UsersList = () => {
   const [sortBy, setSortBy] = useState({path: 'name', order: 'asc'})
   const [searchText, setSearchText] = useState('')
   const [foundedUsers, setFoundedUsers] = useState()
-
   const [users, setUsers] = useState()
 
   useEffect(() => {
@@ -70,11 +69,11 @@ const UsersList = () => {
     setFoundedUsers('')
   }
 
-  const handleUserSearch = ({target}) => {
+  const handleUserSearch = (target) => {
     setSelectedProf('')
-    const searchResult = users.filter((user) =>
-      user.name.toLowerCase().includes(target.value.toLowerCase())
-    )
+    const searchResult = users.filter((user) => {
+      return user.name.toLowerCase().includes(target.value.toLowerCase())
+    })
     setSearchText(target.value)
     setFoundedUsers(searchResult)
   }
@@ -119,4 +118,4 @@ const UsersList = () => {
   )
 }
 
-export default UsersList
+export default UsersListPage

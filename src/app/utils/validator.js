@@ -8,9 +8,14 @@ export function validator(data, config) {
 
   function validate(validateMethod, data, config) {
     switch (validateMethod) {
-      case 'isRequired':
-        statusValidation = data.trim() === ''
+      case 'isRequired': {
+        if (typeof data === 'boolean') {
+          statusValidation = !data
+        } else {
+          statusValidation = data.trim() === ''
+        }
         break
+      }
       case 'isEmail':
         statusValidation = !emailRegExp.test(data)
         break

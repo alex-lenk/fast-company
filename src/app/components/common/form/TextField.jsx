@@ -1,11 +1,18 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import '../scss/styles.scss'
+import '../../../scss/styles.scss'
 
 const TextField = ({label, type, name, value, onChange, error, placeholder}) => {
   const [showPassword, setShowPassword] = useState(false)
 
-  const genInputClasses = () => {
+  const handleChange = ({target}) => {
+    onChange({
+      name: target.name,
+      value: target.value
+    })
+  }
+
+  const getInputClasses = () => {
     return 'form-control' + (error ? ' is-invalid' : '')
   }
 
@@ -19,18 +26,18 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
 
       <div className="input-group has-validation">
         <input
-          className={genInputClasses()}
+          className={getInputClasses()}
           type={showPassword ? 'text' : type}
           name={name}
           id={name}
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
           placeholder={placeholder ? placeholder : ''}
         />
         {
           type === 'password' &&
           <button className="btn-outline-secondary btn" type="button" onClick={toggleShowPassword}>
-            <i className={`bi bi-eye${showPassword ? '-slash' : ''}`} />
+            <i className={`bi bi-eye${showPassword ? '-slash' : ''}`}/>
           </button>
         }
         {error && <div className="invalid-feedback">{error}</div>}

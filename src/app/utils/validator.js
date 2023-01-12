@@ -12,7 +12,7 @@ export function validator(data, config) {
         if (typeof data === 'boolean') {
           statusValidation = !data
         } else {
-          statusValidation = data.trim() === ''
+          statusValidation = data?.trim() === ''
         }
         break
       }

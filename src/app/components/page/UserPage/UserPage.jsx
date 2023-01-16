@@ -13,7 +13,7 @@ const UserPage = ({id}) => {
   }, [])
 
   const handleSave = () => {
-    history.push('/users')
+    history.push(`/users/${id}/edit`)
   }
 
   if (!user) return <h2>Загрузка</h2>
@@ -22,7 +22,7 @@ const UserPage = ({id}) => {
     <>
       <h1>{user.name}</h1>
 
-      <h2>{`Профессия: ${user.profession.name}`}</h2>
+      <h2>{`Профессия: ${user.profession?.name}`}</h2>
 
       {user.qualities.map(item => (
         <Quality key={item._id} {...item}/>
@@ -32,9 +32,7 @@ const UserPage = ({id}) => {
 
       <h2>{`Rate: ${user.rate}`}</h2>
 
-      <button className='btn btn-secondary' onClick={() => {
-        handleSave()
-      }}>Все пользователи</button>
+      <button className='btn btn-secondary' onClick={() => handleSave()}>Изменить</button>
     </>
   )
 }

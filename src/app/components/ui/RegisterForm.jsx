@@ -13,7 +13,7 @@ const RegisterForm = () => {
     password: '',
     profession: '',
     gender: 'male',
-    qualities: ['Странный'],
+    qualities: [],
     license: false,
   })
   const [errors, setErrors] = useState({})

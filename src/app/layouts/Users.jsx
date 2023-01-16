@@ -3,12 +3,15 @@ import PropTypes from 'prop-types'
 import {useParams} from 'react-router-dom'
 import UserPage from '../components/page/UserPage'
 import UsersListPage from '../components/page/UsersListPage'
+import EditUserPage from '../components/page/EditUserPage'
 
 const Users = () => {
   const params = useParams()
-  const {userId} = params
+  const {userId, edit} = params
 
-  return userId ? <UserPage id={userId}/> : <UsersListPage/>
+  return (edit && userId)
+    ? <EditUserPage userId={userId} />
+    : userId ? <UserPage id={userId}/> : <UsersListPage/>
 }
 
 Users.propTypes = {

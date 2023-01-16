@@ -24,7 +24,7 @@ const MultiSelectField = ({options, defaultOptions, onChange, name, label, class
         isMulti
         onChange={handleChange}
         name={name}
-        defaultOptions={defaultOptions}
+        defaultValue={defaultOptions}
         options={optionsArray}
         className={className}
         classNamePrefix={classNamePrefix}

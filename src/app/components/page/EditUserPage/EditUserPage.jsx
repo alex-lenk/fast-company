@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import api from '../../../api'
 import {useHistory, useParams} from 'react-router-dom'
 import {validator} from '../../../utils/validator'
+import {validatorConfig} from '../../../utils/validatorConfig'
 import TextField from '../../common/form/TextField'
 import SelectField from '../../common/form/SelectField'
 import RadioField from '../../common/form/RadioField'
@@ -83,22 +84,6 @@ const EditUserPage = () => {
   useEffect(() => {
     if (data._id) setIsLoading(false)
   }, [data])
-
-  const validatorConfig = {
-    email: {
-      isRequired: {
-        message: 'Email обазателен для заполнения',
-      },
-      isEmail: {
-        message: 'Email введен некоректено',
-      }
-    },
-    name: {
-      isRequired: {
-        message: 'Имя обязательно для заполнения'
-      }
-    }
-  }
 
   useEffect(() => {
     validate()

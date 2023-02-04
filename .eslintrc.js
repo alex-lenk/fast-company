@@ -25,5 +25,6 @@ module.exports = {
       anonymous: "always",
       named: "never",
     }],
+    "react/react-in-jsx-scope": "off"
   }
 }

@@ -40,4 +40,14 @@ export const validatorConfig = {
       message: 'Необходимо принять лицензионное соглашение',
     }
   },
+  userId: {
+    isRequired: {
+      message: 'Выберите имя, от которого отправите комментарий'
+    }
+  },
+  content: {
+    isRequired: {
+      message: 'Комментарий обязателен к заполнению'
+    }
+  }
 }

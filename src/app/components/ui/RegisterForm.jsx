@@ -6,6 +6,7 @@ import SelectField from '../common/form/SelectField'
 import RadioField from '../common/form/RadioField'
 import MultiSelectField from '../common/form/MultiSelectField'
 import CheckboxField from '../common/form/CheckboxField'
+import {validatorConfig} from '../../utils/validatorConfig'
 
 const RegisterForm = () => {
   const [data, setData] = useState({
@@ -25,50 +26,13 @@ const RegisterForm = () => {
     api.qualities.fetchAll().then(data => setQualities(data))
   }, [])
 
+  console.log(professions)
+
   const handleChange = (target) => {
     setData(prevState => ({
       ...prevState,
       [target.name]: target.value
     }))
-  }
-
-  const validatorConfig = {
-    email: {
-      isRequired: {
-        message: 'Email обазателен для заполнения',
-      },
-      isEmail: {
-        message: 'Email введен некоректено',
-      }
-    },
-    password: {
-      isRequired: {
-        message: 'Пароль обазателен для заполнения',
-      },
-      isCapitalSymbol: {
-        message: 'Пароль должен содержать хотя бы одну заглавную букву',
-      },
-      isContainDigit: {
-        message: 'Пароль должен содержать хотя бы одну цифру',
-      },
-      minDigit: {
-        message: 'Пароль должен содержать минимум 8 символов',
-        value: 8
-      },
-      isNonWhitespace: {
-        message: 'Пароль не должен содержать пробелов',
-      }
-    },
-    profession: {
-      isRequired: {
-        message: 'Выберите профессию',
-      }
-    },
-    license: {
-      isRequired: {
-        message: 'Необходимо принять лицензионное соглашение',
-      }
-    },
   }
 
   useEffect(() => {
@@ -146,7 +110,7 @@ const RegisterForm = () => {
         name='license'
         error={errors.license}
       >
-        Подвердить <a href="#" target="_blank" rel="nofollow">лицензионное соглашение</a>
+        Подтвердить <a href="#" target="_blank" rel="nofollow">лицензионное соглашение</a>
       </CheckboxField>
 
       <button className="w-100 mx-auto btn-primary btn" type="submit" disabled={!isValid}>Отправить</button>

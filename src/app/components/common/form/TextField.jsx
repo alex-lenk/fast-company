@@ -22,7 +22,7 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
 
   return (
     <div className="mb-3">
-      {label && <label htmlFor={name}>{label}</label>}
+      {label && <label className="form-label" htmlFor={name}>{label}</label>}
 
       <div className="input-group has-validation">
         <input

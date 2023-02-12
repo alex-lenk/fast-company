@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import LoginForm from '../components/ui/LoginForm'
 import {useParams} from 'react-router-dom'
+import LoginForm from '../components/ui/LoginForm'
 import RegisterForm from '../components/ui/RegisterForm'
 
 const Login = () => {

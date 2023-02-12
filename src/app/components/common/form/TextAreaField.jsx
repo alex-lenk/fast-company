@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 const TextAreaField = ({name, label, value, onChange, error}) => {
   const handleChange = ({target}) => {

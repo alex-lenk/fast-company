@@ -14,11 +14,13 @@ const TableBody = ({data, columns}) => {
 
   return (
     <tbody>
-    {data.map(instance => <tr key={instance._id}>
-      {Object.keys(columns).map(column =>
-        <td key={column}>{renderContent(instance, column)}</td>
-      )}
-    </tr>)}
+    {data.map((instance) =>
+      <tr key={instance._id}>
+        {Object.keys(columns).map((column) =>
+          <td key={column}>{renderContent(instance, column)}</td>
+        )}
+      </tr>
+    )}
     </tbody>
   )
 }
@@ -28,4 +30,4 @@ TableBody.propTypes = {
   columns: PropTypes.object.isRequired,
 }
 
-export default TableBody;
+export default TableBody

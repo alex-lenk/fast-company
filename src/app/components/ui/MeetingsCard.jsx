@@ -1,23 +1,20 @@
+
 import PropTypes from 'prop-types'
+const MeetingsCard = ({ value }) => {
+    return (
+        <div className='card mb-3'>
+            <div className='card-body d-flex flex-column justify-content-center text-center'>
+                <h5 className='card-title'>
+                    <span>Completed meetings</span>
+                </h5>
 
-const MeetingsCard = ({countMeetings}) => {
-  return (
-    <div className="card mb-3">
-      <div className="card-body d-flex flex-column justify-content-center text-center">
-        <h5 className="card-title">
-          <span>Количество встреч</span>
-        </h5>
-
-        <h1 className="display-1">
-          {countMeetings}
-        </h1>
-      </div>
-    </div>
-  )
+                <h1 className='display-1'>{value}</h1>
+            </div>
+        </div>
+    )
 }
-
 MeetingsCard.propTypes = {
-  countMeetings: PropTypes.number.isRequired,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 }
 
 export default MeetingsCard

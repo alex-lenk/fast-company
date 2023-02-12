@@ -1,12 +1,12 @@
-import React from 'react'
+
 import PropTypes from 'prop-types'
 import TextField from './common/form/TextField'
 
-const UsersSearch = ({value, onChange}) => {
+const UsersSearch = ({value, onChange, name}) => {
   return (
       <TextField
         type='search'
-        name='search'
+        name={name}
         placeholder='Поиск имени пользователя'
         value={value}
         onChange={onChange}
@@ -16,6 +16,7 @@ const UsersSearch = ({value, onChange}) => {
 
 UsersSearch.propTypes = {
   value: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func
 }
 

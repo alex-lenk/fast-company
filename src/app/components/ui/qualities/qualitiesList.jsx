@@ -3,12 +3,12 @@ import Quality from './Quality'
 
 const QualitiesList = ({qualities}) => {
   return qualities.map(quality => (
-    <Quality key={quality._id} {...quality} />
+    <Quality key={quality} id={quality}/>
   ))
 }
 
 QualitiesList.propTypes = {
-  qualities: PropTypes.array.isRequired,
+  qualities: PropTypes.array,
 }
 
 export default QualitiesList

@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 import {useQualities} from '../../../hooks/useQualities'
 
 const Quality = ({id}) => {
-  const {isLoading, getQualitiesById} = useQualities()
+  const {getQuality} = useQualities();
+  const {color, name} = getQuality(id)
 
-  if (isLoading) return 'Загрузка данных...'
-
-  const {color, name} = getQualitiesById(id)
-  return <span className={'badge m-1 bg-' + color}>{name}</span>
+  return (
+    <span className={'badge m-1 bg-' + color}>{name}</span>
+  )
 }
 
 Quality.propTypes = {

@@ -11,6 +11,7 @@ axios.interceptors.response.use(
             error.response &&
             error.response.status >= 400 &&
             error.response.status < 500
+
         if (!expectedErrors) {
             console.log(error)
             toast.error('Something was wrong. Try it later')
@@ -25,4 +26,5 @@ const httpService = {
     put: axios.put,
     delete: axios.delete,
 }
+
 export default httpService

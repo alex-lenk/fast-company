@@ -2,25 +2,26 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 const TableBody = ({data, columns}) => {
-  const renderContent = (instance, column) => {
-    const component = columns[column].component
-
-    if (!component) return _.get(instance, columns[column].path)
-
-    if (typeof component === 'function') return component(instance)
-
-    return component
+  const renderContent = (item, column) => {
+    if (columns[column].component) {
+      const component = columns[column].component;
+      if (typeof component === 'function') {
+        return component(item);
+      }
+      return component;
+    }
+    return _.get(item, columns[column].path);
   }
 
   return (
     <tbody>
-    {data.map((instance) =>
-      <tr key={instance._id}>
-        {Object.keys(columns).map((column) =>
-          <td key={column}>{renderContent(instance, column)}</td>
-        )}
+    {data.map((item) => (
+      <tr key={item._id}>
+        {Object.keys(columns).map((column) => (
+          <td key={column}>{renderContent(item, column)}</td>
+        ))}
       </tr>
-    )}
+    ))}
     </tbody>
   )
 }

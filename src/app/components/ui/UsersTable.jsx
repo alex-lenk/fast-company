@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import Bookmark from '../common/Bookmark'
 import Qualities from './qualities'
 import Table from '../common/table'
-import {Link} from 'react-router-dom'
 import Profession from './profession'
 
 const UserTable = ({

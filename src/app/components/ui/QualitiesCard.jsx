@@ -1,6 +1,5 @@
-
-import Qualities from './qualities'
 import PropTypes from 'prop-types'
+import Qualities from './qualities'
 
 const QualitiesCard = ({ data }) => {
     return (
@@ -16,6 +15,7 @@ const QualitiesCard = ({ data }) => {
         </div>
     )
 }
+
 QualitiesCard.propTypes = {
     data: PropTypes.array
 }

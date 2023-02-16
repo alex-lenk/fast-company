@@ -1,16 +1,16 @@
-@use 'sass:math';
+@use 'sass:math'
 
 @mixin hidePlaceholder {
   &::-moz-placeholder {
-    @content;
+    @content
   }
   &:-ms-input-placeholder {
-    @content;
+    @content
   }
   &::-ms-input-placeholder {
-    @content;
+    @content
   }
   &::-webkit-input-placeholder {
-    @content;
+    @content
   }
 }

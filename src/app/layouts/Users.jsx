@@ -1,23 +1,22 @@
-import PropTypes from 'prop-types'
 import {useParams} from 'react-router-dom'
 import UserPage from '../components/page/UserPage'
 import UsersListPage from '../components/page/UsersListPage'
 import EditUserPage from '../components/page/EditUserPage'
+import UserProvider from '../hooks/useUsers'
 
 const Users = () => {
   const params = useParams()
   const {userId, edit} = params
-
-  return userId
-    ? edit
-      ? <EditUserPage/>
-      : <UserPage id={userId}/>
-    : <UsersListPage/>
-}
-
-Users.propTypes = {
-  users: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  usersCount: PropTypes.number,
+  return (
+    <UserProvider>
+      {userId
+        ? edit
+          ? <EditUserPage/>
+          : <UserPage userId={userId}/>
+        : <UsersListPage/>
+      }
+    </UserProvider>
+  )
 }
 
 export default Users

@@ -1,15 +1,11 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import '../../../scss/styles.scss'
 
 const TextField = ({label, type, name, value, onChange, error, placeholder}) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = ({target}) => {
-    onChange({
-      name: target.name,
-      value: target.value
-    })
+    onChange({name: target.name, value: target.value})
   }
 
   const getInputClasses = () => {
@@ -17,7 +13,7 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
   }
 
   const toggleShowPassword = () => {
-    setShowPassword(prevState => !prevState)
+    setShowPassword((prevState) => !prevState)
   }
 
   return (
@@ -53,7 +49,7 @@ TextField.defaultProps = {
 TextField.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
   error: PropTypes.string,

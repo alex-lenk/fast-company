@@ -33,7 +33,7 @@ const fetchAll = () =>
     }, 200)
   })
 
-const fetchCommentsUser = (userId) =>
+const fetchCommentsForUser = (userId) =>
   new Promise((resolve) => {
     window.setTimeout(function () {
       resolve(
@@ -73,7 +73,7 @@ const remove = (id) =>
 
 export default {
   fetchAll,
-  fetchCommentsUser,
+  fetchCommentsForUser,
   add,
   remove
 }

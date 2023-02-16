@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types'
 
-const Bookmark = ({favorite, ...rest}) => {
-  const stateFavorite = favorite ? '-heart-fill' : ''
+const Bookmark = ({status, ...rest}) => {
+  const stateFavorite = status ? '-heart-fill' : ''
 
   return (
     <button className="btn" {...rest}>
-      <i className={`bi bi-bookmark${stateFavorite}`}>&nbsp;</i>
+      <i className={`bi bi-bookmark${stateFavorite}`}/>
     </button>
   )
 }
 
 Bookmark.propTypes = {
-  favorite: PropTypes.bool.isRequired,
+  status: PropTypes.bool
 }
 
 export default Bookmark

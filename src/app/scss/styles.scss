@@ -1,19 +1,19 @@
-@import 'utils/mixin';
+@import 'utils/mixin'
 
 .form-control:focus {
   @include hidePlaceholder {
-    color: transparent;
-    opacity: 0.4;
-    transition: opacity .2s ease-in-out;
+    color: transparent
+    opacity: 0.4
+    transition: opacity .2s ease-in-out
   }
 }
 
 .user-avatar {
-  width: 150px;
-  height: 150px;
+  width: 150px
+  height: 150px
 }
 
 .user-avatar__small {
-  width: 65px;
-  height: 65px;
+  width: 65px
+  height: 65px
 }

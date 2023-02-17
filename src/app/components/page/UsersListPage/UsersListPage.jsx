@@ -6,7 +6,7 @@ import {paginate} from '../../../utils/paginate'
 import GroupList from '../../common/GroupList'
 import SearchStatus from '../../ui/SearchStatus'
 import UsersTable from '../../ui/UsersTable'
-import {useUsers} from '../../../hooks/useUsers'
+import {useUser} from '../../../hooks/useUsers'
 import UsersSearch from '../../UsersSearch'
 
 const UsersListPage = () => {
@@ -17,7 +17,7 @@ const UsersListPage = () => {
   const [sortBy, setSortBy] = useState({path: 'name', order: 'asc'})
   const pageSize = 8
 
-  const {users} = useUsers()
+  const {users} = useUser()
 
   const handleDelete = (userId) => {
     console.log(userId)

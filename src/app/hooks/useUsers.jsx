@@ -5,7 +5,7 @@ import {toast} from 'react-toastify'
 
 const UserContext = React.createContext()
 
-export const useUsers = () => {
+export const useUser = () => {
   return useContext(UserContext)
 }
 
@@ -43,7 +43,7 @@ const UserProvider = ({children}) => {
 
   return (
     <UserContext.Provider value={{users}}>
-      {!isLoading ? children : 'Loading ...'}
+      {!isLoading ? children : 'Loading...'}
     </UserContext.Provider>
   )
 }
@@ -51,8 +51,8 @@ const UserProvider = ({children}) => {
 UserProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+    PropTypes.node
+  ])
 }
 
 export default UserProvider

@@ -22,7 +22,7 @@ export const validatorConfig = {
     isContainDigit: {
       message: 'Пароль должен содержать хотя бы одну цифру',
     },
-    minDigit: {
+    min: {
       message: 'Пароль должен содержать минимум 8 символов',
       value: 8
     },

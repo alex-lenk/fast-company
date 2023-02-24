@@ -1,19 +1,14 @@
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 
-const MultiSelectField = ({options, defaultOptions, onChange, name, label, className, classNamePrefix}) => {
-  const optionsArray = !Array.isArray(options) && typeof options === 'object'
-    ? Object.keys(options).map((optionName) => ({
-      label: options[optionName].name,
-      value: options[optionName]._id
-    }))
-    : options
+const MultiSelectField = ({options, onChange, name, label, defaultValue}) => {
+  const optionsArray =
+    !Array.isArray(options) && typeof options === 'object'
+      ? Object.values(options)
+      : options
 
   const handleChange = (value) => {
-    onChange({
-      name: name,
-      value
-    })
+    onChange({name: name, value})
   }
 
   return (
@@ -21,32 +16,23 @@ const MultiSelectField = ({options, defaultOptions, onChange, name, label, class
       {label && <label className="form-label">{label}</label>}
       <Select
         isMulti
+        closeMenuOnSelect={false}
+        defaultValue={defaultValue}
+        options={optionsArray}
+        className="basic-multi-select"
+        classNamePrefix="select"
         onChange={handleChange}
         name={name}
-        defaultValue={defaultOptions}
-        options={optionsArray}
-        className={className}
-        classNamePrefix={classNamePrefix}
-        closeMenuOnSelect={false}
       />
     </div>
   )
 }
-
-MultiSelectField.defaultProps = {
-  className: 'basic-multi-select',
-  classNamePrefix: 'select',
-}
-
 MultiSelectField.propTypes = {
-  options: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onChange: PropTypes.func,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string,
-  value: PropTypes.string,
-  className: PropTypes.string,
-  classNamePrefix: PropTypes.string,
-  defaultOptions: PropTypes.array,
+  defaultValue: PropTypes.array
 }
 
 export default MultiSelectField

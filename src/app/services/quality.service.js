@@ -1,6 +1,6 @@
 import httpService from './http.service'
 
-const qualityEndpoint = 'qualities/'
+const qualityEndpoint = 'quality/'
 
 const qualityService = {
   fetchAll: async () => {
@@ -8,4 +8,5 @@ const qualityService = {
     return data
   }
 }
+
 export default qualityService

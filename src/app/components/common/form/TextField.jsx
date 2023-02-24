@@ -22,17 +22,20 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
 
       <div className="input-group has-validation">
         <input
-          className={getInputClasses()}
           type={showPassword ? 'text' : type}
-          name={name}
           id={name}
+          name={name}
           value={value}
           onChange={handleChange}
+          className={getInputClasses()}
           placeholder={placeholder ? placeholder : ''}
         />
-        {
-          type === 'password' &&
-          <button className="btn-outline-secondary btn" type="button" onClick={toggleShowPassword}>
+        {type === 'password' &&
+          <button
+            className="btn btn-outline-secondary"
+            type="button"
+            onClick={toggleShowPassword}
+          >
             <i className={`bi bi-eye${showPassword ? '-slash' : ''}`}/>
           </button>
         }

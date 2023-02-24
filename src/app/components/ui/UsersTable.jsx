@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import Bookmark from '../common/Bookmark'
 import Qualities from './qualities'
 import Table from '../common/table'
-import Profession from './profession'
+import Profession from './Profession'
 
 const UserTable = ({
                      users,

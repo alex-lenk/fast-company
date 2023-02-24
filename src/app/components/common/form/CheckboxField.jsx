@@ -1,29 +1,32 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 
 const CheckboxField = ({name, value, onChange, children, error}) => {
-  const handleChange = () => onChange({name: name, value: !value})
+  const handleChange = () => {
+    onChange({name: name, value: !value})
+  }
 
-  const getInputClasses = () => 'form-check-input' + (error ? ' is-invalid' : '')
+  const getInputClasses = () => {
+    return 'form-check-input' + (error ? ' is-invalid' : '')
+  }
 
   return (
     <div className="form-check mb-4">
       <input
-        type="checkbox"
         className={getInputClasses()}
+        type="checkbox"
+        value=""
         id={name}
-        value={value}
         onChange={handleChange}
-        defaultChecked={value}
+        checked={value}
       />
       <label className="form-check-label" htmlFor={name}>
         {children}
       </label>
-
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
   )
 }
-
 CheckboxField.propTypes = {
   name: PropTypes.string,
   value: PropTypes.bool,
@@ -32,7 +35,7 @@ CheckboxField.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]),
-  error: PropTypes.string,
+  error: PropTypes.string
 }
 
 export default CheckboxField

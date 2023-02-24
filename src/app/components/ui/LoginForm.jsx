@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import * as yup from 'yup'
 import TextField from '../common/form/TextField'
-import CheckboxField from '../common/form/CheckboxField'
-
+import CheckBoxField from '../common/form/CheckboxField'
+import {validator} from '../../utils/validator'
+import {validatorConfig} from '../../utils/validatorConfig'
 
 const LoginForm = () => {
   const [data, setData] = useState({
@@ -19,39 +19,22 @@ const LoginForm = () => {
     }))
   }
 
-  const validateSchema = yup.object().shape({
-    password: yup.string().required('Пароль обязателен для заполнения')
-      .matches(/(?=.*[A-Z])/, 'Пароль должен содержать хотя бы одну заглавную букву')
-      .matches(/(?=.*[0-9])/, 'Пароль должен содержать хотя бы одну цифру')
-      .matches(/(?=.*[!@#$%^&*])/, 'Пароль должен содержать один из специальных символов ! @ # $ % ^ & *')
-      .matches(/(?=.{8,})/, 'Пароль должен содержать минимум 8 символов')
-      .matches(/^\S+$/g, 'Пароль не должен содержать пробелов'),
-    email: yup.string().required('Email обязателен для заполнения').email('Email введен некорректен'),
-  })
-
   useEffect(() => {
     validate()
   }, [data])
-
   const validate = () => {
-
-    validateSchema
-      .validate(data)
-      .then(() => setErrors({}))
-      .catch((err) => setErrors({[err.path]: err.message}))
-
+    const errors = validator(data, validatorConfig)
+    setErrors(errors)
     return Object.keys(errors).length === 0
   }
-
   const isValid = Object.keys(errors).length === 0
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
     const isValid = validate()
-    if (!isValid) return false
+    if (!isValid) return
+    console.log(data)
   }
-
   return (
     <form onSubmit={handleSubmit}>
       <TextField
@@ -59,7 +42,7 @@ const LoginForm = () => {
         name='email'
         value={data.email}
         onChange={handleChange}
-        error={errors?.email}
+        error={errors.email}
       />
 
       <TextField
@@ -68,18 +51,23 @@ const LoginForm = () => {
         name='password'
         value={data.password}
         onChange={handleChange}
-        error={errors?.password}
+        error={errors.password}
       />
-
-      <CheckboxField
+      <CheckBoxField
         value={data.stayOn}
         onChange={handleChange}
         name='stayOn'
       >
-        оставаться в системе
-      </CheckboxField>
+        Оставаться в системе
+      </CheckBoxField>
 
-      <button className="w-100 mx-auto btn-primary btn" type="submit" disabled={!isValid}>Отправить</button>
+      <button
+        className="btn btn-primary w-100 mx-auto"
+        type="submit"
+        disabled={!isValid}
+      >
+        Отправить
+      </button>
     </form>
   )
 }

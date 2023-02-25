@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
+import {toast} from 'react-toastify'
 import {validator} from '../../utils/validator'
 import TextField from '../common/form/TextField'
 import SelectField from '../common/form/SelectField'
@@ -64,7 +65,20 @@ const RegisterForm = () => {
 
     try {
       await signUp(newData)
-      history.push('/')
+
+      toast.success('Вы успешно зарегистрировались и будите перенаправлены на главную страницу через 3 секунды', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+
+      setTimeout(() => {
+        history.push('/')
+      }, 3000)
     } catch (error) {
       setErrors(error)
     }
@@ -73,8 +87,8 @@ const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        label='Email'
-        name='email'
+        label="Email"
+        name="email"
         value={data.email}
         onChange={handleChange}
         error={errors.email}

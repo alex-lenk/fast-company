@@ -26,3 +26,4 @@ yarn-error.log*
 *.iml
 package-lock.json
 .env.development
+.env.production

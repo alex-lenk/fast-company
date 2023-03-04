@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {useHistory} from 'react-router-dom'
-import {toast} from 'react-toastify'
 import {validator} from '../../utils/validator'
 import TextField from '../common/form/TextField'
 import SelectField from '../common/form/SelectField'
@@ -10,7 +8,7 @@ import CheckboxField from '../common/form/CheckboxField'
 import {useQualities} from '../../hooks/useQualities'
 import {useProfessions} from '../../hooks/useProfession'
 import {useAuth} from '../../hooks/useAuth'
-import {validatorConfig} from '../../utils/validatorConfig'
+import {useHistory} from 'react-router-dom'
 
 const RegisterForm = () => {
   const history = useHistory()
@@ -19,10 +17,10 @@ const RegisterForm = () => {
     password: '',
     profession: '',
     sex: 'male',
+    name: '',
     qualities: [],
     licence: false
   })
-
   const {signUp} = useAuth()
   const {qualities} = useQualities()
   const qualitiesList = qualities.map((q) => ({
@@ -34,7 +32,6 @@ const RegisterForm = () => {
     label: p.name,
     value: p._id
   }))
-
   const [errors, setErrors] = useState({})
 
   const handleChange = (target) => {
@@ -43,7 +40,51 @@ const RegisterForm = () => {
       [target.name]: target.value
     }))
   }
-
+  const validatorConfig = {
+    email: {
+      isRequired: {
+        message: 'Электронная почта обязательна для заполнения'
+      },
+      isEmail: {
+        message: 'Email введен некорректно'
+      }
+    },
+    name: {
+      isRequired: {
+        message: 'Имя обязательно для заполнения'
+      },
+      min: {
+        message: 'Имя должно состоять минимум из 3 символов',
+        value: 3
+      }
+    },
+    password: {
+      isRequired: {
+        message: 'Пароль обязателен для заполнения'
+      },
+      isCapitalSymbol: {
+        message: 'Пароль должен содержать хотя бы одну заглавную букву'
+      },
+      isContainDigit: {
+        message: 'Пароль должен содержать хотя бы одно число'
+      },
+      min: {
+        message: 'Пароль должен состоять минимум из 8 символов',
+        value: 8
+      }
+    },
+    profession: {
+      isRequired: {
+        message: 'Обязательно выберите вашу профессию'
+      }
+    },
+    licence: {
+      isRequired: {
+        message:
+          'Вы не можете использовать наш сервис без подтверждения лицензионного соглашения'
+      }
+    }
+  }
   useEffect(() => {
     validate()
   }, [data])
@@ -65,20 +106,7 @@ const RegisterForm = () => {
 
     try {
       await signUp(newData)
-
-      toast.success('Вы успешно зарегистрировались и будите перенаправлены на главную страницу через 3 секунды', {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-
-      setTimeout(() => {
-        history.push('/')
-      }, 3000)
+      history.push('/')
     } catch (error) {
       setErrors(error)
     }
@@ -87,11 +115,18 @@ const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        label="Email"
+        label="Электронная почта"
         name="email"
         value={data.email}
         onChange={handleChange}
         error={errors.email}
+      />
+      <TextField
+        label="Имя"
+        name="name"
+        value={data.name}
+        onChange={handleChange}
+        error={errors.name}
       />
       <TextField
         label="Пароль"

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import {useHistory} from 'react-router-dom'
-import TextField from '../common/form/TextField'
-import CheckBoxField from '../common/form/CheckboxField'
-import {validator} from '../../utils/validator'
-import {validatorConfig} from '../../utils/validatorConfig'
-import {useAuth} from '../../hooks/useAuth'
 import {toast} from 'react-toastify'
+import {validator} from '../../utils/validator'
+import TextField from '../common/form/TextField'
+import CheckboxField from '../common/form/CheckboxField'
+import {useAuth} from '../../hooks/useAuth'
+import {validatorConfig} from '../../utils/validatorConfig'
 
 const LoginForm = () => {
   const [data, setData] = useState({
@@ -55,8 +55,12 @@ const LoginForm = () => {
       })
 
       setTimeout(() => {
-        history.push('/')
-      }, 2000)
+        history.push(
+          history.location.state
+            ? history.location.state.from.pathname
+            : '/'
+        )
+      }, 1500)
     } catch (error) {
       setEnterError(error.message)
     }
@@ -70,7 +74,6 @@ const LoginForm = () => {
         onChange={handleChange}
         error={errors.email}
       />
-
       <TextField
         label="Пароль"
         type="password"
@@ -79,23 +82,20 @@ const LoginForm = () => {
         onChange={handleChange}
         error={errors.password}
       />
-
-      <CheckBoxField
+      <CheckboxField
         value={data.stayOn}
         onChange={handleChange}
         name="stayOn"
       >
         Оставаться в системе
-      </CheckBoxField>
-
+      </CheckboxField>
       {enterError && <p className="text-danger">{enterError}</p>}
-
       <button
         className="btn btn-primary w-100 mx-auto"
         type="submit"
-        disabled={!isValid}
+        disabled={!isValid || enterError}
       >
-        Отправить
+        Submit
       </button>
     </form>
   )

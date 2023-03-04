@@ -3,7 +3,7 @@ import {toast} from 'react-toastify'
 import PropTypes from 'prop-types'
 import qualityService from '../services/quality.service'
 
-const QualitiesContext = React.createContext()
+const QualitiesContext = React.createContext(null)
 
 export const useQualities = () => {
   return useContext(QualitiesContext)

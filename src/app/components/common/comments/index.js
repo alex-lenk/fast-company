@@ -1,5 +1,5 @@
-import ListComments from './ListComments'
-import FormComment from './FormComment'
+import CommentsList from './CommentsList'
+import AddCommentForm from './AddCommentForm'
 
-export default ListComments
-export {FormComment}
+export default CommentsList
+export {AddCommentForm}

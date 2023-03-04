@@ -7,7 +7,6 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended"
   ],
-  overrides: [],
   parserOptions: {
     ecmaFeatures: {
       jsx: true

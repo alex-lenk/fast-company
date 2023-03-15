@@ -3,7 +3,7 @@ import {toast} from 'react-toastify'
 import PropTypes from 'prop-types'
 import qualityService from '../services/quality.service'
 
-const QualitiesContext = React.createContext(null)
+const QualitiesContext = React.createContext()
 
 export const useQualities = () => {
   return useContext(QualitiesContext)
@@ -47,7 +47,7 @@ export const QualitiesProvider = ({children}) => {
       value={{
         qualities,
         getQuality,
-        isLoading
+        isLoading,
       }}
     >
       {children}
@@ -58,6 +58,6 @@ export const QualitiesProvider = ({children}) => {
 QualitiesProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+    PropTypes.node,
+  ]),
 }

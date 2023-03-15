@@ -10,7 +10,7 @@ const Profession = ({id}) => {
 }
 
 Profession.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.string,
 }
 
 export default Profession

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
-const TextField = ({label, type, name, value, onChange, error, placeholder}) => {
+const TextField = ({label, type, name, value, onChange, error}) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = ({target}) => {
@@ -17,9 +17,8 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
   }
 
   return (
-    <div className="mb-3">
+    <div className="mb-4">
       {label && <label className="form-label" htmlFor={name}>{label}</label>}
-
       <div className="input-group has-validation">
         <input
           type={showPassword ? 'text' : type}
@@ -28,17 +27,20 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
           value={value}
           onChange={handleChange}
           className={getInputClasses()}
-          placeholder={placeholder ? placeholder : ''}
         />
-        {type === 'password' &&
+        {type === 'password' && (
           <button
             className="btn btn-outline-secondary"
             type="button"
             onClick={toggleShowPassword}
           >
-            <i className={`bi bi-eye${showPassword ? '-slash' : ''}`}/>
+            <i
+              className={
+                'bi bi-eye' + (showPassword ? '-slash' : '')
+              }
+            ></i>
           </button>
-        }
+        )}
         {error && <div className="invalid-feedback">{error}</div>}
       </div>
     </div>
@@ -46,7 +48,7 @@ const TextField = ({label, type, name, value, onChange, error, placeholder}) => 
 }
 
 TextField.defaultProps = {
-  type: 'text'
+  type: 'text',
 }
 
 TextField.propTypes = {
@@ -56,7 +58,6 @@ TextField.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   error: PropTypes.string,
-  placeholder: PropTypes.string,
 }
 
 export default TextField

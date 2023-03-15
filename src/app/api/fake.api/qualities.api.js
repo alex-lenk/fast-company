@@ -2,33 +2,33 @@ const qualities = {
   tedious: {
     _id: '67rdca3eeb7f6fgeed471198',
     name: 'Нудила',
-    color: 'primary'
+    color: 'primary',
   },
   strange: {
     _id: '67rdca3eeb7f6fgeed471100',
     name: 'Странный',
-    color: 'secondary'
+    color: 'secondary',
   },
   buller: {
     _id: '67rdca3eeb7f6fgeed4711012',
     name: 'Троль',
-    color: 'success'
+    color: 'success',
   },
   alcoholic: {
     _id: '67rdca3eeb7f6fgeed471101',
     name: 'Алкоголик',
-    color: 'danger'
+    color: 'danger',
   },
   handsome: {
     _id: '67rdca3eeb7f6fgeed471102',
     name: 'Красавчик',
-    color: 'info'
+    color: 'info',
   },
   uncertain: {
     _id: '67rdca3eeb7f6fgeed471103',
     name: 'Неуверенный',
-    color: 'dark'
-  }
+    color: 'dark',
+  },
 }
 
 const fetchAll = () =>
@@ -39,5 +39,5 @@ const fetchAll = () =>
   })
 
 export default {
-  fetchAll
+  fetchAll,
 }

@@ -11,20 +11,23 @@ const userService = {
   create: async (payload) => {
     const {data} = await httpService.put(
       userEndpoint + payload._id,
-      payload
+      payload,
     )
     return data
   },
   getCurrentUser: async () => {
     const {data} = await httpService.get(
-      userEndpoint + localStorageService.getUserId()
+      userEndpoint + localStorageService.getUserId(),
     )
     return data
   },
   update: async (payload) => {
-    const {data} = await httpService.patch(userEndPoint + localStorageService.getUserId(), payload)
+    const {data} = await httpService.patch(
+      userEndpoint + localStorageService.getUserId(),
+      payload,
+    )
     return data
-  }
+  },
 }
 
 export default userService

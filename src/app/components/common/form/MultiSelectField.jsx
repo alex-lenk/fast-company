@@ -12,7 +12,7 @@ const MultiSelectField = ({options, onChange, name, label, defaultValue}) => {
   }
 
   return (
-    <div className="mb-3">
+    <div className="mb-4">
       {label && <label className="form-label">{label}</label>}
       <Select
         isMulti
@@ -27,12 +27,13 @@ const MultiSelectField = ({options, onChange, name, label, defaultValue}) => {
     </div>
   )
 }
+
 MultiSelectField.propTypes = {
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onChange: PropTypes.func,
   name: PropTypes.string,
   label: PropTypes.string,
-  defaultValue: PropTypes.array
+  defaultValue: PropTypes.array,
 }
 
 export default MultiSelectField

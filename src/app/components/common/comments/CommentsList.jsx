@@ -9,7 +9,7 @@ const CommentsList = ({comments, onRemove}) => {
 
 CommentsList.propTypes = {
   comment: PropTypes.array,
-  onRemove: PropTypes.func
+  onRemove: PropTypes.func,
 }
 
 export default CommentsList

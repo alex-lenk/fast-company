@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import {toast} from 'react-toastify'
 import {validator} from '../../utils/validator'
 import TextField from '../common/form/TextField'
 import CheckboxField from '../common/form/CheckboxField'
@@ -11,7 +10,7 @@ const LoginForm = () => {
   const [data, setData] = useState({
     email: '',
     password: '',
-    stayOn: false
+    stayOn: false,
   })
   const history = useHistory()
   const {logIn} = useAuth()
@@ -19,9 +18,9 @@ const LoginForm = () => {
   const [enterError, setEnterError] = useState(null)
 
   const handleChange = (target) => {
-    setData(prevState => ({
+    setData((prevState) => ({
       ...prevState,
-      [target.name]: target.value
+      [target.name]: target.value,
     }))
     setEnterError(null)
   }
@@ -44,27 +43,16 @@ const LoginForm = () => {
     try {
       await logIn(data)
 
-      toast.success('Вы успешно авторизовались и будите перенаправлены на главную страницу через 2 секунды', {
-        position: 'top-center',
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-
-      setTimeout(() => {
-        history.push(
-          history.location.state
-            ? history.location.state.from.pathname
-            : '/'
-        )
-      }, 1500)
+      history.push(
+        history.location.state
+          ? history.location.state.from.pathname
+          : '/',
+      )
     } catch (error) {
       setEnterError(error.message)
     }
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <TextField

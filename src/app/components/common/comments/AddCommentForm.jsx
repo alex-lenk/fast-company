@@ -9,15 +9,15 @@ const AddCommentForm = ({onSubmit}) => {
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
-      [target.name]: target.value
+      [target.name]: target.value,
     }))
   }
   const validatorConfig = {
     content: {
       isRequired: {
-        message: 'Сообщение не может быть пустым'
-      }
-    }
+        message: 'Сообщение не может быть пустым',
+      },
+    },
   }
 
   const validate = () => {
@@ -54,8 +54,9 @@ const AddCommentForm = ({onSubmit}) => {
     </div>
   )
 }
+
 AddCommentForm.propTypes = {
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
 }
 
 export default AddCommentForm

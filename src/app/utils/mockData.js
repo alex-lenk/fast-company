@@ -9,7 +9,7 @@ const useMockData = () => {
     idle: 'Not Started',
     pending: 'In Process',
     successed: 'Ready',
-    error: 'Error occurred'
+    error: 'Error occurred',
   }
   const [error, setError] = useState(null)
   const [status, setStatus] = useState(statusConsts.idle)

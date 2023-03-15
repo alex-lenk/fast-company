@@ -29,7 +29,7 @@ export const CommentsProvider = ({children}) => {
       _id: nanoid(),
       pageId: userId,
       created_at: Date.now(),
-      userId: currentUser._id
+      userId: currentUser._id,
     }
     try {
       const {content} = await commentService.createComment(comment)
@@ -60,7 +60,7 @@ export const CommentsProvider = ({children}) => {
       const {content} = await commentService.removeComment(id)
       if (content === null) {
         setComments((prevState) =>
-          prevState.filter((c) => c._id !== id)
+          prevState.filter((c) => c._id !== id),
         )
       }
     } catch (error) {
@@ -86,6 +86,6 @@ export const CommentsProvider = ({children}) => {
 CommentsProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+    PropTypes.node,
+  ]),
 }

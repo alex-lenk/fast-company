@@ -53,31 +53,32 @@ const UsersListPage = () => {
     setSortBy(item)
   }
 
-  function filterUsers(data) {
-    const filteredUsers = searchQuery
-      ? data.filter(
-        (user) =>
-          user.name
-            .toLowerCase()
-            .indexOf(searchQuery.toLowerCase()) !== -1
-      )
-      : selectedProf
+  if (users) {
+    // eslint-disable-next-line no-inner-declarations
+    function filterUsers(data) {
+      const filteredUsers = searchQuery
         ? data.filter(
           (user) =>
-            JSON.stringify(user.profession) ===
-            JSON.stringify(selectedProf)
+            user.name
+              .toLowerCase()
+              .indexOf(searchQuery.toLowerCase()) !== -1,
         )
-        : data
-    return filteredUsers.filter((u) => u._id !== currentUser._id)
-  }
+        : selectedProf
+          ? data.filter(
+            (user) =>
+              JSON.stringify(user.profession) ===
+              JSON.stringify(selectedProf),
+          )
+          : data
+      return filteredUsers.filter((u) => u._id !== currentUser._id)
+    }
 
-  if (users) {
     const filteredUsers = filterUsers(users)
     const count = filteredUsers.length
     const sortedUsers = _.orderBy(
       filteredUsers,
       [sortBy.path],
-      [sortBy.order]
+      [sortBy.order],
     )
     const usersCrop = paginate(sortedUsers, currentPage, pageSize)
     const clearFilter = () => {
@@ -137,7 +138,7 @@ const UsersListPage = () => {
 }
 
 UsersListPage.propTypes = {
-  users: PropTypes.array
+  users: PropTypes.array,
 }
 
 export default UsersListPage

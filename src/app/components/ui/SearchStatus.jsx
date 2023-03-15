@@ -9,7 +9,9 @@ const SearchStatus = ({length}) => {
     }
 
     if (lastOne === 1) return 'человек тусанет'
+
     if ([2, 3, 4].indexOf(lastOne) >= 0) return 'человека тусанут'
+
     return 'человек тусанет'
   }
 

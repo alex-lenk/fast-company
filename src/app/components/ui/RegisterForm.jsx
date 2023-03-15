@@ -5,10 +5,11 @@ import SelectField from '../common/form/SelectField'
 import RadioField from '../common/form/RadioField'
 import MultiSelectField from '../common/form/MultiSelectField'
 import CheckboxField from '../common/form/CheckboxField'
-import {useQualities} from '../../hooks/useQualities'
 import {useProfessions} from '../../hooks/useProfession'
 import {useAuth} from '../../hooks/useAuth'
 import {useHistory} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import {getQualities} from '../../store/qualities'
 
 const RegisterForm = () => {
   const history = useHistory()
@@ -19,71 +20,71 @@ const RegisterForm = () => {
     sex: 'male',
     name: '',
     qualities: [],
-    licence: false
+    licence: false,
   })
   const {signUp} = useAuth()
-  const {qualities} = useQualities()
+  const qualities = useSelector(getQualities())
   const qualitiesList = qualities.map((q) => ({
     label: q.name,
-    value: q._id
+    value: q._id,
   }))
   const {professions} = useProfessions()
   const professionsList = professions.map((p) => ({
     label: p.name,
-    value: p._id
+    value: p._id,
   }))
   const [errors, setErrors] = useState({})
 
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
-      [target.name]: target.value
+      [target.name]: target.value,
     }))
   }
   const validatorConfig = {
     email: {
       isRequired: {
-        message: 'Электронная почта обязательна для заполнения'
+        message: 'Электронная почта обязательна для заполнения',
       },
       isEmail: {
-        message: 'Email введен некорректно'
-      }
+        message: 'Email введен некорректно',
+      },
     },
     name: {
       isRequired: {
-        message: 'Имя обязательно для заполнения'
+        message: 'Имя обязательно для заполнения',
       },
       min: {
         message: 'Имя должно состоять минимум из 3 символов',
-        value: 3
-      }
+        value: 3,
+      },
     },
     password: {
       isRequired: {
-        message: 'Пароль обязателен для заполнения'
+        message: 'Пароль обязателен для заполнения',
       },
       isCapitalSymbol: {
-        message: 'Пароль должен содержать хотя бы одну заглавную букву'
+        message: 'Пароль должен содержать хотя бы одну заглавную букву',
       },
       isContainDigit: {
-        message: 'Пароль должен содержать хотя бы одно число'
+        message: 'Пароль должен содержать хотя бы одно число',
       },
       min: {
         message: 'Пароль должен состоять минимум из 8 символов',
-        value: 8
-      }
+        value: 8,
+      },
     },
     profession: {
       isRequired: {
-        message: 'Обязательно выберите вашу профессию'
-      }
+        message: 'Обязательно выберите вашу профессию',
+      },
     },
     licence: {
       isRequired: {
         message:
-          'Вы не можете использовать наш сервис без подтверждения лицензионного соглашения'
-      }
-    }
+          'Вы не можете использовать наш сервис без подтверждения лицензионного соглашения',
+      },
+    },
   }
   useEffect(() => {
     validate()
@@ -101,7 +102,7 @@ const RegisterForm = () => {
     if (!isValid) return
     const newData = {
       ...data,
-      qualities: data.qualities.map((q) => q.value)
+      qualities: data.qualities.map((q) => q.value),
     }
 
     try {
@@ -149,7 +150,7 @@ const RegisterForm = () => {
         options={[
           {name: 'Male', value: 'male'},
           {name: 'Female', value: 'female'},
-          {name: 'Other', value: 'other'}
+          {name: 'Other', value: 'other'},
         ]}
         value={data.sex}
         name="sex"

@@ -15,7 +15,7 @@ const MeetingsCard = ({value}) => {
 }
 
 MeetingsCard.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 export default MeetingsCard

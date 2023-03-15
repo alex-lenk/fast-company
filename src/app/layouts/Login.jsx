@@ -6,11 +6,11 @@ import RegisterForm from '../components/ui/RegisterForm'
 const Login = () => {
   const {type} = useParams()
   const [formType, setFormType] = useState(
-    type === 'register' ? type : 'login'
+    type === 'register' ? type : 'login',
   )
   const toggleFormType = () => {
-    setFormType(prevState =>
-      prevState === 'register' ? 'login' : 'register'
+    setFormType((prevState) =>
+      prevState === 'register' ? 'login' : 'register',
     )
   }
 
@@ -20,7 +20,7 @@ const Login = () => {
         <div className="col-md-6 offset-md-3 shadow p-4">
           {formType === 'register' ? (
             <>
-              <h3 className="mb-3">Регистрация</h3>
+              <h3 className="mb-4">Register</h3>
               <RegisterForm/>
               <p>
                 У вас есть аккаунт? &nbsp;
@@ -31,7 +31,7 @@ const Login = () => {
             </>
           ) : (
             <>
-              <h3 className="mb-3">Вход</h3>
+              <h3 className="mb-4">Вход</h3>
               <LoginForm/>
               <p>
                 У вас нет аккаунт? &nbsp;

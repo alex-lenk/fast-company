@@ -37,6 +37,17 @@ const UserProvider = ({children}) => {
     }
   }
 
+  useEffect(() => {
+    if (!isLoading) {
+      const newUsers = [...users]
+      const indexUser = newUsers.findIndex(
+        (u) => u._id === currentUser._id,
+      )
+      newUsers[indexUser] = currentUser
+      setUsers(newUsers)
+    }
+  }, [currentUser])
+
   function errorCatcher(error) {
     const {message} = error.response.data
     setError(message)
@@ -46,27 +57,6 @@ const UserProvider = ({children}) => {
   function getUserById(userId) {
     return users.find((u) => u._id === userId)
   }
-
-  useEffect(() => {
-    getUsers()
-  }, [])
-  useEffect(() => {
-    if (error !== null) {
-      toast(error)
-      setError(null)
-    }
-  }, [error])
-
-  useEffect(() => {
-    if (!isLoading) {
-      const newUsers = [...users]
-      const indexUser = newUsers.findIndex(user => user._id === currentUser._id)
-      newUsers[indexUser] = currentUser
-      setUsers(newUsers)
-    }
-  }, [currentUser])
-
-  console.log(users)
 
   return (
     <UserContext.Provider value={{users, getUserById}}>
@@ -78,8 +68,8 @@ const UserProvider = ({children}) => {
 UserProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+    PropTypes.node,
+  ]),
 }
 
 export default UserProvider

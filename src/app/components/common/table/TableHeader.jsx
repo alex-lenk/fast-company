@@ -1,31 +1,31 @@
 import PropTypes from 'prop-types'
 
 const TableHeader = ({onSort, selectedSort, columns}) => {
-  const handleSort = item => {
+  const handleSort = (item) => {
     if (selectedSort.path === item) {
       onSort({
         ...selectedSort,
-        order: selectedSort.order === 'asc' ? 'desc' : 'asc'
+        order: selectedSort.order === 'asc' ? 'desc' : 'asc',
       })
     } else {
       onSort({path: item, order: 'asc'})
     }
   }
-
-  const returnSortCaret = (selectedSort, currentPath) => {
-    if (selectedSort.path !== currentPath) return false
-
-    if (selectedSort.order === 'asc') {
-      return 'up'
-    } else {
-      return 'down'
+  const rendeSortArrow = (selectedSort, currentPath) => {
+    if (selectedSort.path === currentPath) {
+      if (selectedSort.order === 'asc') {
+        return <i className="bi bi-caret-down-fill"></i>
+      } else {
+        return <i className="bi bi-caret-up-fill"></i>
+      }
     }
+    return null
   }
 
   return (
     <thead>
     <tr>
-      {Object.keys(columns).map((column) =>
+      {Object.keys(columns).map((column) => (
         <th
           key={column}
           onClick={
@@ -34,12 +34,12 @@ const TableHeader = ({onSort, selectedSort, columns}) => {
               : undefined
           }
           {...{role: columns[column].path && 'button'}}
-          scope='col'
+          scope="col"
         >
-          <span className="pe-2">{columns[column].name}</span>
-          <i className={`bi bi-caret-${returnSortCaret(selectedSort, columns[column].path)}-fill`}/>
+          {columns[column].name}{' '}
+          {rendeSortArrow(selectedSort, columns[column].path)}
         </th>
-      )}
+      ))}
     </tr>
     </thead>
   )
@@ -48,7 +48,7 @@ const TableHeader = ({onSort, selectedSort, columns}) => {
 TableHeader.propTypes = {
   onSort: PropTypes.func.isRequired,
   selectedSort: PropTypes.object.isRequired,
-  columns: PropTypes.object.isRequired
+  columns: PropTypes.object.isRequired,
 }
 
 export default TableHeader

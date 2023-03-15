@@ -8,9 +8,8 @@ const RadioField = ({options, name, onChange, value, label}) => {
   return (
     <div className="mb-4">
       {label && <label className="form-label">{label}</label>}
-
-      <div className="mb-4">
-        {options.map(option =>
+      <div>
+        {options.map((option) => (
           <div
             key={option.name + '_' + option.value}
             className="form-check form-check-inline"
@@ -31,7 +30,7 @@ const RadioField = ({options, name, onChange, value, label}) => {
               {option.name}
             </label>
           </div>
-        )}
+        ))}
       </div>
     </div>
   )
@@ -42,7 +41,7 @@ RadioField.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.string,
-  label: PropTypes.string
+  label: PropTypes.string,
 }
 
 export default RadioField

@@ -27,15 +27,16 @@ const CheckboxField = ({name, value, onChange, children, error}) => {
     </div>
   )
 }
+
 CheckboxField.propTypes = {
   name: PropTypes.string,
   value: PropTypes.bool,
   onChange: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
+    PropTypes.node,
   ]),
-  error: PropTypes.string
+  error: PropTypes.string,
 }
 
 export default CheckboxField

@@ -8,7 +8,7 @@ const Comment = ({
                    created_at: created,
                    _id: id,
                    userId,
-                   onRemove
+                   onRemove,
                  }) => {
   const {getUserById} = useUser()
   const {currentUser} = useAuth()
@@ -60,7 +60,7 @@ Comment.propTypes = {
   created_at: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   userId: PropTypes.string,
   onRemove: PropTypes.func,
-  _id: PropTypes.string
+  _id: PropTypes.string,
 }
 
 export default Comment

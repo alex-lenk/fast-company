@@ -6,18 +6,19 @@ import Users from './layouts/Users'
 import Login from './layouts/Login'
 import Main from './layouts/Main'
 import NavBar from './components/ui/NavBar'
-import {ProfessionProvider} from './hooks/useProfession'
 import AuthProvider from './hooks/useAuth'
 import ProtectedRoute from './components/common/protectedRoute'
 import LogOut from './layouts/LogOut'
 import {useDispatch} from 'react-redux'
 import {loadQualitiesList} from './store/qualities'
+import {loadProfessionsList} from './store/professions'
 import NotFound from './layouts/NotFound'
 
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(loadQualitiesList())
+    dispatch(loadProfessionsList())
   }, [])
 
   return (
@@ -25,7 +26,6 @@ function App() {
       <AuthProvider>
         <NavBar/>
 
-        <ProfessionProvider>
           <Switch>
             <ProtectedRoute
               path="/users/:userId?/:edit?"
@@ -38,7 +38,6 @@ function App() {
             <Route path="/404" component={NotFound}/>
             <Redirect to="/404"/>
           </Switch>
-        </ProfessionProvider>
       </AuthProvider>
 
       <ToastContainer/>

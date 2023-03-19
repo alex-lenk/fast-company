@@ -1,4 +1,3 @@
-import React, {useEffect} from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -9,22 +8,15 @@ import NavBar from './components/ui/NavBar'
 import AuthProvider from './hooks/useAuth'
 import ProtectedRoute from './components/common/protectedRoute'
 import LogOut from './layouts/LogOut'
-import {useDispatch} from 'react-redux'
-import {loadQualitiesList} from './store/qualities'
-import {loadProfessionsList} from './store/professions'
+import AppLoader from './components/hoc/appLoader'
 import NotFound from './layouts/NotFound'
 
 function App() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(loadQualitiesList())
-    dispatch(loadProfessionsList())
-  }, [])
-
   return (
     <div className="container pt-5 pb-2">
-      <AuthProvider>
-        <NavBar/>
+      <AppLoader>
+        <AuthProvider>
+          <NavBar/>
 
           <Switch>
             <ProtectedRoute
@@ -38,7 +30,8 @@ function App() {
             <Route path="/404" component={NotFound}/>
             <Redirect to="/404"/>
           </Switch>
-      </AuthProvider>
+        </AuthProvider>
+      </AppLoader>
 
       <ToastContainer/>
     </div>

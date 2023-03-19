@@ -1,21 +1,19 @@
 import React, {useEffect, useState} from 'react'
-import {useHistory} from 'react-router-dom'
 import {validator} from '../../../utils/validator'
 import TextField from '../../common/form/TextField'
 import SelectField from '../../common/form/SelectField'
 import RadioField from '../../common/form/RadioField'
 import MultiSelectField from '../../common/form/MultiSelectField'
 import BackHistoryButton from '../../common/BackButton'
-import {useAuth} from '../../../hooks/useAuth'
 import {useSelector, useDispatch} from 'react-redux'
 import {getQualities, getQualitiesLoadingStatus} from '../../../store/qualities'
 import {getProfessions, getProfessionsLoadingStatus} from '../../../store/professions'
+import {getCurrentUserData, updateUser} from '../../../store/users'
 
 const EditUserPage = () => {
-  const history = useHistory()
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState()
-  const {currentUser, updateUserData} = useAuth()
+  const currentUser = useSelector(getCurrentUserData())
   const dispatch = useDispatch()
   const qualities = useSelector(getQualities())
   const qualitiesLoading = useSelector(getQualitiesLoadingStatus())
@@ -24,7 +22,7 @@ const EditUserPage = () => {
     value: q._id,
   }))
   const professions = useSelector(getProfessions())
-  const professionsLoading = useSelector(getProfessionsLoadingStatus())
+  const professionLoading = useSelector(getProfessionsLoadingStatus())
   const professionsList = professions.map((p) => ({
     label: p.name,
     value: p._id,
@@ -38,12 +36,11 @@ const EditUserPage = () => {
     const isValid = validate()
     if (!isValid) return
     dispatch(
-      updateUserData({
+      updateUser({
         ...data,
         qualities: data.qualities.map((q) => q.value),
-      }),
+      })
     )
-    history.push(`/users/${currentUser._id}`)
   }
 
   function getQualitiesListByIds(qualitiesIds) {
@@ -60,32 +57,22 @@ const EditUserPage = () => {
   }
 
   const transformData = (data) => {
-    const result = getQualitiesListByIds(data).map((qual) => ({
+    return getQualitiesListByIds(data).map((qual) => ({
       label: qual.name,
       value: qual._id,
     }))
-    return result
   }
 
   useEffect(() => {
-    if (!professionsLoading &&
-      !qualitiesLoading &&
-      currentUser &&
-      !data) {
+    if (!professionLoading && !qualitiesLoading && currentUser && !data) {
       setData({
         ...currentUser,
         qualities: transformData(currentUser.qualities),
       })
     }
-  }, [
-    professionsLoading,
-    qualitiesLoading,
-    currentUser,
-    data,
-  ])
+  }, [professionLoading, qualitiesLoading, currentUser, data])
 
   useEffect(() => {
-    validate()
     if (data && isLoading) {
       setIsLoading(false)
     }
@@ -110,6 +97,10 @@ const EditUserPage = () => {
     },
   }
 
+  useEffect(() => {
+    validate()
+  }, [data])
+
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
@@ -130,8 +121,7 @@ const EditUserPage = () => {
       <BackHistoryButton/>
       <div className="row">
         <div className="col-md-6 offset-md-3 shadow p-4">
-          {!isLoading && Object.keys(professions).length > 0
-            ? (
+          {!isLoading && Object.keys(professions).length > 0 ? (
             <form onSubmit={handleSubmit}>
               <TextField
                 label="Имя"

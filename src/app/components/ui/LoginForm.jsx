@@ -3,7 +3,8 @@ import {useHistory} from 'react-router-dom'
 import {validator} from '../../utils/validator'
 import TextField from '../common/form/TextField'
 import CheckboxField from '../common/form/CheckboxField'
-import {useAuth} from '../../hooks/useAuth'
+import {useDispatch, useSelector} from 'react-redux'
+import {getAuthErrors, login} from '../../store/users'
 import {validatorConfig} from '../../utils/validatorConfig'
 
 const LoginForm = () => {
@@ -13,16 +14,15 @@ const LoginForm = () => {
     stayOn: false,
   })
   const history = useHistory()
-  const {logIn} = useAuth()
+  const loginError = useSelector(getAuthErrors())
+  const dispatch = useDispatch()
   const [errors, setErrors] = useState({})
-  const [enterError, setEnterError] = useState(null)
 
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value,
     }))
-    setEnterError(null)
   }
 
   useEffect(() => {
@@ -35,22 +35,15 @@ const LoginForm = () => {
   }
   const isValid = Object.keys(errors).length === 0
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     const isValid = validate()
     if (!isValid) return
+    const redirect = history.location.state
+      ? history.location.state.from.pathname
+      : '/'
 
-    try {
-      await logIn(data)
-
-      history.push(
-        history.location.state
-          ? history.location.state.from.pathname
-          : '/',
-      )
-    } catch (error) {
-      setEnterError(error.message)
-    }
+    dispatch(login({payload: data, redirect}))
   }
 
   return (
@@ -77,11 +70,11 @@ const LoginForm = () => {
       >
         Оставаться в системе
       </CheckboxField>
-      {enterError && <p className="text-danger">{enterError}</p>}
+      {loginError && <p className="text-danger">{loginError}</p>}
       <button
         className="btn btn-primary w-100 mx-auto"
         type="submit"
-        disabled={!isValid || enterError}
+        disabled={!isValid}
       >
         Submit
       </button>

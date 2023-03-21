@@ -5,7 +5,6 @@ import Users from './layouts/Users'
 import Login from './layouts/Login'
 import Main from './layouts/Main'
 import NavBar from './components/ui/NavBar'
-import AuthProvider from './hooks/useAuth'
 import ProtectedRoute from './components/common/protectedRoute'
 import LogOut from './layouts/LogOut'
 import AppLoader from './components/hoc/appLoader'
@@ -15,22 +14,20 @@ function App() {
   return (
     <div className="container pt-5 pb-2">
       <AppLoader>
-        <AuthProvider>
-          <NavBar/>
+        <NavBar/>
 
-          <Switch>
-            <ProtectedRoute
-              path="/users/:userId?/:edit?"
-              component={Users}
-            />
-            <Route path="/login/:type?" component={Login}/>
-            <Route path="/logout" component={LogOut}/>
-            <Route path="/" exact component={Main}/>
-            <Redirect to="/"/>
-            <Route path="/404" component={NotFound}/>
-            <Redirect to="/404"/>
-          </Switch>
-        </AuthProvider>
+        <Switch>
+          <ProtectedRoute
+            path="/users/:userId?/:edit?"
+            component={Users}
+          />
+          <Route path="/login/:type?" component={Login}/>
+          <Route path="/logout" component={LogOut}/>
+          <Route path="/" exact component={Main}/>
+          <Redirect to="/"/>
+          <Route path="/404" component={NotFound}/>
+          <Redirect to="/404"/>
+        </Switch>
       </AppLoader>
 
       <ToastContainer/>
